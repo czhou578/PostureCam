@@ -1,0 +1,14 @@
+OpenCV - web integration
+Google MediaPipe
+plyer to display desktop notification banner
+SQLite to store logs
+React / Flask for the web app
+
+When slouching, the toaster will send some kind of notification saying you need to improve posture. 
+Frontend will display a counter that shows number of slouches and a webcam showing video of person
+
+how would slouching be defined? how to make machine learn that?
+
+
+
+
