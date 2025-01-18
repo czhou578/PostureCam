@@ -2,25 +2,23 @@ import cv2
 import mediapipe as mp
 import math
 
+def find_camera():
+    for i in range(10):  # Test indices 0 through 9
+        cap = cv2.VideoCapture(i)
+        if cap.isOpened():
+            print(f"Camera found at index {i}")
+            cap.release()
+        else:
+            print(f"No camera at index {i}")
+
 def calculate_angle(point1, point2):
     return math.degrees(math.atan2(point2.y - point1.y, point2.x - point1.x))
-
-if results.pose_landmarks:
-    left_shoulder = landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER]
-    right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
-    mid_spine = landmarks[mp_pose.PoseLandmark.LEFT_HIP]  # Example
-
-    # Calculate angle
-    spine_angle = calculate_angle(left_shoulder, mid_spine)
-    print(f"Spine Angle: {spine_angle}")
-
-    # Check if slouching
-    if spine_angle < 80:  # Example threshold
-        print("Slouching detected!")
 
 # Initialize MediaPipe Pose and Drawing utilities
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
+
+find_camera()
 
 # Initialize webcam
 cap = cv2.VideoCapture(0)
@@ -44,8 +42,17 @@ with mp_pose.Pose(static_image_mode=False,
 
         # Draw pose landmarks on the original frame
         if results.pose_landmarks:
-            mp_drawing.draw_landmarks(
-                frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+            left_shoulder = landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER]
+            right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
+            mid_spine = landmarks[mp_pose.PoseLandmark.LEFT_HIP]  # Example
+
+            # Calculate angle
+            spine_angle = calculate_angle(left_shoulder, mid_spine)
+            print(f"Spine Angle: {spine_angle}")
+
+            # Check if slouching
+            if spine_angle < 80:  # Example threshold
+                print("Slouching detected!")
 
         # Display the frame with landmarks
         cv2.imshow('MediaPipe Pose', frame)
