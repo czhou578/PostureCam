@@ -1,5 +1,22 @@
 import cv2
 import mediapipe as mp
+import math
+
+def calculate_angle(point1, point2):
+    return math.degrees(math.atan2(point2.y - point1.y, point2.x - point1.x))
+
+if results.pose_landmarks:
+    left_shoulder = landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER]
+    right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
+    mid_spine = landmarks[mp_pose.PoseLandmark.LEFT_HIP]  # Example
+
+    # Calculate angle
+    spine_angle = calculate_angle(left_shoulder, mid_spine)
+    print(f"Spine Angle: {spine_angle}")
+
+    # Check if slouching
+    if spine_angle < 80:  # Example threshold
+        print("Slouching detected!")
 
 # Initialize MediaPipe Pose and Drawing utilities
 mp_pose = mp.solutions.pose
