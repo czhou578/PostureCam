@@ -1,11 +1,9 @@
 import cv2
 import mediapipe as mp
 
-# Initialize MediaPipe Face Detection
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
 
-# Initialize webcam
 cap = cv2.VideoCapture(0)
 
 # Get the frame height for relative position calculations
@@ -14,8 +12,8 @@ if ret:
     frame_height = frame.shape[0]
     frame_width = frame.shape[1]
 else:
-    frame_height = 480  # default value
-    frame_width = 640   # default value
+    frame_height = 480  
+    frame_width = 640
 
 # Define calibration variables
 calibration_samples = []
